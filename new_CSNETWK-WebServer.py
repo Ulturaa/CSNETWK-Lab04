@@ -5,17 +5,9 @@ import sys # In order to terminate the program
 serverSocket = socket(AF_INET, SOCK_STREAM)
 #Prepare a sever socket
 #Fill in start
-
-serverSocket = socket(AF_INET, SOCK_STREAM)
 port = 3901
-server = gethostbyname(gethostname()) #Gets host IP address
-address = (server,port)
-
-server = socket(AF_INET, SOCK_STREAM)
-server.bind(address)
 serverSocket.bind(('', 3901))
 serverSocket.listen(1)
-
 #Fill in end
 
 
@@ -28,6 +20,7 @@ while True:
         filename = message.split()[1]
         f = open(filename[1:])
         outputdata = f.read() #Fill in start #Fill in end
+        f.close()
         #Send one HTTP header line into socket
         #Fill in start
         connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
@@ -45,13 +38,11 @@ while True:
         #Fill in start
         connectionSocket.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())                    # Fill in
         connectionSocket.send("<html><body><h1>404 Not Found</h1></body></html>".encode())  # Fill in
-    
         #Fill in end
        
         #Close client socket
-        connectionSocket.close()
         #Fill in start
-        
+        connectionSocket.close()
         #Fill in end
 
 serverSocket.close()
